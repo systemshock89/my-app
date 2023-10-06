@@ -22,8 +22,15 @@ class WhoAmI extends Component {
     // состояние - объект, кот-й описывает динамические вещи, кот-е будут в объекте
     this.state = {
       years: 27,
-      text: '+++'
+      text: '+++',
+      position: '' // название должности
     }
+
+    // this.nextYear = this.nextYear.bind(this)
+    // второй способ привязать контекст к ф-и, кот-я вызывается в обработчике событий
+    // слева св-во экземпляра класса
+    // справа обращаемся к методу nextYear() и биндим (привязываем) к конкретному экземпляру класса
+
   }
   // если в конструкторе больше ничего нет (кроме super(props); ), то его можно удалить
 
@@ -49,14 +56,43 @@ class WhoAmI extends Component {
     })) // сокращенние написание: здесь оборачиваем (), заменяя слово return
   }
 
+  // обычная, не стрелочная ф-я (чтоб не потерялся this - биндим в конструкторе)
+    /*
+  nextYear(){
+    this.setState(state => ({
+      years: state.years + 1 
+    })) 
+  }
+    */
+
+  commitInputChanges = (e, color) => {
+    this.setState({
+      position: e.target.value
+    })
+  }
+
   render(){
     const {name, surname, link} = this.props;
-
+    const {position, years, text} = this.state;
+    
     return (
       <div>
-        <button onClick={this.nextYear}>{this.state.text}</button>
-        <h1>My name is {name}, surname - {surname}, age - {this.state.years}</h1>
+        <button onClick={this.nextYear}>{text}</button>
+        {/* <button onClick={() => {this.nextYear()}}>{text}</button> */}
+        <h1>
+          My name is {name}, surname - {surname}, 
+          age - {years}, 
+          positon - {position}
+        </h1>
         <a href={link}>My profile</a>
+
+        <form>
+          <span>Введите должность</span>
+          {/* <input type="text" onChange={this.commitInputChanges} /> */}
+
+          {/* Чтобы передать аргумент в обработчик событий, нужно использовать стрелочную ф-ю:  */}
+          <input type="text" onChange={(e) => this.commitInputChanges(e, 'some color')} />
+        </form>
       </div>
     )
   }
