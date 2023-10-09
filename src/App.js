@@ -76,7 +76,7 @@ class WhoAmI extends Component {
     const {position, years, text} = this.state;
     
     return (
-      <div>
+      <>
         <button onClick={this.nextYear}>{text}</button>
         {/* <button onClick={() => {this.nextYear()}}>{text}</button> */}
         <h1>
@@ -93,7 +93,7 @@ class WhoAmI extends Component {
           {/* Чтобы передать аргумент в обработчик событий, нужно использовать стрелочную ф-ю:  */}
           <input type="text" onChange={(e) => this.commitInputChanges(e, 'some color')} />
         </form>
-      </div>
+      </>
     )
   }
 }
